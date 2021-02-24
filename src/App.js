@@ -1,19 +1,19 @@
 // src/App.js
 
 import React, { Component } from 'react';
-import Contacts from './components/contacts';
+import Joke from './components/joke';
 
 
 class App extends Component {
   state = {
-    contacts: []
+    joke: []
   }
 
   componentDidMount() {
      fetch('https://official-joke-api.appspot.com/random_joke')
      .then(res => res.json())
      .then((data) => {
-       this.setState({ contacts: data })
+       this.setState({ joke: data })
        console.log("Mark has retrieved some data: ", data)
      })
      .catch(console.log)
@@ -21,7 +21,7 @@ class App extends Component {
 
   render() {
     return (
-      <Contacts contacts={this.state.contacts} />
+      <Joke joke={this.state.joke} />
     );
   }
 }
