@@ -5,6 +5,11 @@ import Joke from './components/joke';
 
 
 class App extends Component {
+  constructor(props) {
+  super(props);
+  this.handleClick = this.handleClick.bind(this);
+  }
+  
   state = {
     joke: []
   }
@@ -19,9 +24,16 @@ class App extends Component {
      .catch(console.log)
    }
 
+   handleClick() {
+   console.log('Click happened');
+ }
+
   render() {
     return (
-      <Joke joke={this.state.joke} />
+      <div>
+        <button onClick={this.handleClick}>Click Me</button>
+        <Joke joke={this.state.joke} />
+      </div>
     );
   }
 }
