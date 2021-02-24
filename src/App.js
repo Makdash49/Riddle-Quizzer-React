@@ -1,16 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          This will be a riddle quizzer!
-        </p>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+import Contacts from './components/contacts';
+
+
+class App extends Component {
+  state = {
+    contacts: []
+  }
+
+  componentDidMount() {
+     fetch('http://jsonplaceholder.typicode.com/users')
+     .then(res => res.json())
+     .then((data) => {
+       this.setState({ contacts: data })
+       console.log("Mark has retrieved some data: ", data)
+     })
+     .catch(console.log)
+   }
+
+  render() {
+    return (
+      <Contacts contacts={this.state.contacts} />
+    );
+  }
 }
 
 export default App;
