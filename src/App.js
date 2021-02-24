@@ -10,7 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-     fetch('http://jsonplaceholder.typicode.com/users')
+     fetch('https://official-joke-api.appspot.com/random_joke')
      .then(res => res.json())
      .then((data) => {
        this.setState({ contacts: data })
