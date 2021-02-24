@@ -11,36 +11,34 @@ class App extends Component {
   }
 
   state = {
-    joke: []
+    jokes: []
   }
 
-  // componentDidMount() {
-  //    fetch('https://official-joke-api.appspot.com/random_joke')
-  //    .then(res => res.json())
-  //    .then((data) => {
-  //      this.setState({ joke: data })
-  //      console.log("Mark has retrieved some data: ", data)
-  //    })
-  //    .catch(console.log)
-  //  }
-
    handleClick() {
-   fetch('https://official-joke-api.appspot.com/random_joke')
-   .then(res => res.json())
-   .then((data) => {
-     this.setState({ joke: data })
-   })
-   .catch(console.log)
- }
+     this.setState({jokes: []});
+     var times = 4;
+     for (var i =0; i < times; i++){
+       console.log("hello", i);
+       fetch('https://official-joke-api.appspot.com/random_joke')
+         .then(res => res.json())
+         .then((data) => {
+           this.setState({ jokes: [...this.state.jokes, data]})
+           console.log("joke: ", this.state);
+         })
+         .catch(console.log)
+       }
+     }
 
   render() {
     return (
       <div>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
-        <Joke joke={this.state.joke} />
+          <Joke joke={this.state.jokes} />
       </div>
     );
   }
 }
 
 export default App;
+
+// <Joke joke={this.state.joke} />
