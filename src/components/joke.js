@@ -3,7 +3,6 @@
 import React from 'react'
 
 const Joke = ({ joke }) => {
-  console.log("joke: ", joke);
   return (
     <div>
       <center><h1>A Joke</h1></center>
@@ -18,7 +17,3 @@ const Joke = ({ joke }) => {
 };
 
 export default Joke
-
-// <div className="card-body">
-//   <h5 className="card-title">{joke.setup}</h5>
-//   <h5 className="card-title">{joke.punchline}</h5>

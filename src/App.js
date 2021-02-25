@@ -4,6 +4,26 @@ import React, { Component } from 'react';
 import Joke from './components/joke';
 
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
 class App extends Component {
   constructor(props) {
   super(props);
@@ -11,23 +31,23 @@ class App extends Component {
   }
 
   state = {
-    jokes: []
+    jokes: [],
+    shuffled: [],
   }
-
-   handleClick() {
-     this.setState({jokes: []});
-     var times = 4;
-     for (var i =0; i < times; i++){
-       console.log("hello", i);
-       fetch('https://official-joke-api.appspot.com/random_joke')
+     handleClick() {
+       this.setState({jokes: []});
+       fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
          .then((data) => {
-           this.setState({ jokes: [...this.state.jokes, data]})
-           console.log("joke: ", this.state);
+           const newArr = Array.from(data);
+           this.setState({ jokes: data,
+                           shuffled: shuffle(newArr)});
+           console.log("state: ", this.state);
          })
          .catch(console.log)
+         this.setState()
+
        }
-     }
 
   render() {
     return (
@@ -41,4 +61,10 @@ class App extends Component {
 
 export default App;
 
-// <Joke joke={this.state.joke} />
+
+// Todo list:
+// Add a scrambled jokes list
+// Allow the user to select an answer either by typing the letter or clicking on the component
+// Check the letter's joke id against the unscrambled joke list to see if it matches
+// If it matches move onto the next joke setup.
+// Keep going until 4 jokes have been answered.
