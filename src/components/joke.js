@@ -12,6 +12,3 @@ const Joke = ({ joke }) => {
 };
 
 export default Joke
-
-
-// <h5 className="card-title">{(joke[0]) ? joke[0].punchline : null}</h5>

@@ -37,13 +37,13 @@ class App extends Component {
     shuffled: [],
   }
      handleClick() {
-       this.setState({jokes: []});
        fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
          .then((data) => {
-           const newArr = Array.from(data);
-           this.setState({ jokes: data,
-                           shuffled: shuffle(newArr)});
+           const firstFour = data.slice(0,4);
+           const shuffledFour = (shuffle(Array.from(firstFour)))
+           this.setState({ jokes: firstFour,
+                           shuffled: shuffledFour});
            console.log("state: ", this.state);
          })
          .catch(console.log)
