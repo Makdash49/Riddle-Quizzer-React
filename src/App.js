@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import Joke from './components/joke';
+import List from './components/list';
+
 
 
 function shuffle(array) {
@@ -54,6 +56,7 @@ class App extends Component {
       <div>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
           <Joke joke={this.state.jokes} />
+          <List list={this.state.shuffled} />
       </div>
     );
   }
