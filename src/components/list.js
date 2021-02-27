@@ -35,7 +35,7 @@ class List extends React.Component {
     // const name = e.target.value;
     // this.props.onChange(name);
     const id = e.target.attributes.id.value;
-    console.log("id: ", id)
+    // console.log("id: ", id)
     this.props.compareId(id);
   }
 

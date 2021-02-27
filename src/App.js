@@ -30,6 +30,7 @@ class App extends Component {
   constructor(props) {
   super(props);
   this.handleClick = this.handleClick.bind(this);
+  this.compareId = this.compareId.bind(this);
   }
 
   state = {
@@ -51,8 +52,19 @@ class App extends Component {
 
        }
 
-       compareId(id) {
-         console.log("this is the id from the list: ", id)
+       compareId(punchlineId) {
+         const setupId = this.state.jokes[0].id
+         // console.log("this is the id from the list: ", punchlineId);
+         // console.log("this.state.jokes[0].id: ", setupId);
+         // console.log("setupId is type: ", typeof setupId);
+         // console.log("punchlineId is type: ", typeof punchlineId);
+
+         if (setupId === parseInt(punchlineId)) {
+           console.log("You got it right!!!!!");
+         } else {
+           console.log("Nope! Try again!!");
+         }
+
        }
 
   render() {
