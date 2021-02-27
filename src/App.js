@@ -51,12 +51,16 @@ class App extends Component {
 
        }
 
+       compareId(id) {
+         console.log("this is the id from the list: ", id)
+       }
+
   render() {
     return (
       <div>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
           <Joke joke={this.state.jokes} />
-          <List list={this.state.shuffled} />
+          <List list={this.state.shuffled} compareId={this.compareId}/>
       </div>
     );
   }
