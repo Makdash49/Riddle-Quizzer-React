@@ -64,13 +64,13 @@ class App extends Component {
          // console.log("punchlineId is type: ", typeof punchlineId);
 
          if (setupId === parseInt(punchlineId)) {
-           this.setState({feedback: "You got it right!!!",
-                          setupIndex: (setupIndex + 1)});
+           this.setState({feedback: "You got it right!!!"});
+           setTimeout(function(){that.setState({feedback: "",
+                                                setupIndex: (setupIndex + 1)})}, 1000);
          } else {
            this.setState({feedback: "WRONG!!!"});
+           setTimeout(function(){that.setState({feedback: ""})}, 1000);
          }
-         setTimeout(function(){that.setState({feedback: ""})}, 1000);
-
        }
 
   render() {
