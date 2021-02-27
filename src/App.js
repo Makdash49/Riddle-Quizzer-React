@@ -37,6 +37,7 @@ class App extends Component {
     jokes: [],
     shuffled: [],
     feedback: "",
+    setupIndex: 0,
   }
      handleClick() {
        fetch('https://official-joke-api.appspot.com/jokes/ten')
@@ -54,7 +55,8 @@ class App extends Component {
        }
 
        compareId(punchlineId) {
-         const setupId = this.state.jokes[0].id
+         const setupIndex = this.state.setupIndex;
+         const setupId = this.state.jokes[setupIndex].id;
          const that = this;
          // console.log("this is the id from the list: ", punchlineId);
          // console.log("this.state.jokes[0].id: ", setupId);
@@ -62,7 +64,8 @@ class App extends Component {
          // console.log("punchlineId is type: ", typeof punchlineId);
 
          if (setupId === parseInt(punchlineId)) {
-           this.setState({feedback: "You got it right!!!"});
+           this.setState({feedback: "You got it right!!!",
+                          setupIndex: (setupIndex + 1)});
          } else {
            this.setState({feedback: "WRONG!!!"});
          }
@@ -74,7 +77,7 @@ class App extends Component {
     return (
       <div>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
-          <Joke joke={this.state.jokes} />
+          <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId}/>
           {/* This could be its own component*/}
           <h1>{this.state.feedback}</h1>
@@ -92,3 +95,4 @@ export default App;
 // Check the letter's joke id against the unscrambled joke list to see if it matches
 // If it matches move onto the next joke setup.
 // Keep going until 4 jokes have been answered.
+// Add random heckles when the answers are wrong.
