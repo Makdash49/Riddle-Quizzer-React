@@ -34,14 +34,15 @@ class List extends React.Component {
   handleAnswer(e) {
     // const name = e.target.value;
     // this.props.onChange(name);
-    console.log("Someone clicked a punchline")
+
+    console.log("id: ", e.target.attributes.id.value)
   }
 
   render() {
     return (
       <div>
         {this.props.list.map((contact) => (
-          <button key={contact.punchline} className="Click-here" onClick={this.handleAnswer}>{contact.punchline}</button>
+          <button key={contact.punchline} className="Click-here" onClick={this.handleAnswer} id={contact.id}>{contact.punchline}</button>
 
         ))}
       </div>
