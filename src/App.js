@@ -55,6 +55,7 @@ class App extends Component {
 
        compareId(punchlineId) {
          const setupId = this.state.jokes[0].id
+         const that = this;
          // console.log("this is the id from the list: ", punchlineId);
          // console.log("this.state.jokes[0].id: ", setupId);
          // console.log("setupId is type: ", typeof setupId);
@@ -65,6 +66,7 @@ class App extends Component {
          } else {
            this.setState({feedback: "WRONG!!!"});
          }
+         setTimeout(function(){that.setState({feedback: ""})}, 1000);
 
        }
 
