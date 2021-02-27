@@ -36,6 +36,7 @@ class App extends Component {
   state = {
     jokes: [],
     shuffled: [],
+    feedback: "",
   }
      handleClick() {
        fetch('https://official-joke-api.appspot.com/jokes/ten')
@@ -60,9 +61,9 @@ class App extends Component {
          // console.log("punchlineId is type: ", typeof punchlineId);
 
          if (setupId === parseInt(punchlineId)) {
-           console.log("You got it right!!!!!");
+           this.setState({feedback: "You got it right!!!"});
          } else {
-           console.log("Nope! Try again!!");
+           this.setState({feedback: "WRONG!!!"});
          }
 
        }
@@ -73,6 +74,8 @@ class App extends Component {
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
           <Joke joke={this.state.jokes} />
           <List list={this.state.shuffled} compareId={this.compareId}/>
+          {/* This could be its own component*/}
+          <h1>{this.state.feedback}</h1>
       </div>
     );
   }
