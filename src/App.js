@@ -43,11 +43,12 @@ class App extends Component {
        fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
          .then((data) => {
-           this.setState({ setupIndex: 0});
            const firstFour = data.slice(0,4);
            const shuffledFour = (shuffle(Array.from(firstFour)))
            this.setState({ jokes: firstFour,
-                           shuffled: shuffledFour});
+                           shuffled: shuffledFour,
+                           setupIndex: 0,
+                           feedback: ""});
            console.log("state: ", this.state);
          })
          .catch(console.log)
@@ -59,15 +60,17 @@ class App extends Component {
          const setupIndex = this.state.setupIndex;
          const setupId = this.state.jokes[setupIndex].id;
          const that = this;
-         // console.log("this is the id from the list: ", punchlineId);
-         // console.log("this.state.jokes[0].id: ", setupId);
-         // console.log("setupId is type: ", typeof setupId);
-         // console.log("punchlineId is type: ", typeof punchlineId);
+         // console.log("setupId: ", setupId);
+         // console.log("punchlineId: ", punchlineId);
 
-         if (setupId === parseInt(punchlineId)) {
+         // console.log("is this true?: ", (setupId === parseInt(punchlineId) && setupIndex < 3));
+
+         if (setupId === parseInt(punchlineId) && setupIndex < 3) {
            this.setState({feedback: "You got it right!!!"});
            setTimeout(function(){that.setState({feedback: "",
                                                 setupIndex: (setupIndex + 1)})}, 1000);
+         } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
+           this.setState({feedback: "You cleared the jokes. Click for more jokes!"});
          } else {
            this.setState({feedback: "WRONG!!!"});
            setTimeout(function(){that.setState({feedback: ""})}, 1000);
