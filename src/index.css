@@ -31,3 +31,8 @@ code {
     cursor: pointer;
     background-color: #DCDCDC;
 }
+
+.Click-here:active {
+    cursor: pointer;
+    background-color: gray;
+}
