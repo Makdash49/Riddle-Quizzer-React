@@ -22,7 +22,7 @@ code {
 }
 
 .centered {
-  /* text-align: center; */
+  text-align: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -42,9 +42,10 @@ code {
 
 
 .Click-here {
-  margin: 10px;
+  margin: auto;
+  display:block;
+  margin-bottom: 10px;
   padding: 10px;
-  display: block;
   width: 60%;
   overflow: auto;
   font-size: 16px;

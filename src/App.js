@@ -23,7 +23,6 @@ function shuffle(array) {
   return array;
 }
 
-
 class App extends Component {
   constructor(props) {
   super(props);
@@ -95,3 +94,6 @@ export default App;
 // If it matches move onto the next joke setup.
 // Keep going until 4 jokes have been answered.
 // Add random heckles when the answers are wrong.
+// Sound effects
+// timer
+// points, add point for right answer, take away point for wrong.
