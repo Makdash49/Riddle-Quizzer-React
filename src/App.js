@@ -43,6 +43,7 @@ class App extends Component {
        fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
          .then((data) => {
+           this.setState({ setupIndex: 0});
            const firstFour = data.slice(0,4);
            const shuffledFour = (shuffle(Array.from(firstFour)))
            this.setState({ jokes: firstFour,
