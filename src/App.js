@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import Joke from './components/joke';
 import List from './components/list';
 
-
-
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -60,10 +58,6 @@ class App extends Component {
          const setupIndex = this.state.setupIndex;
          const setupId = this.state.jokes[setupIndex].id;
          const that = this;
-         // console.log("setupId: ", setupId);
-         // console.log("punchlineId: ", punchlineId);
-
-         // console.log("is this true?: ", (setupId === parseInt(punchlineId) && setupIndex < 3));
 
          if (setupId === parseInt(punchlineId) && setupIndex < 3) {
            this.setState({feedback: "You got it right!!!"});
@@ -79,7 +73,8 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="joke-container centered">
+        <h1>Riddle Quizzer React</h1>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId}/>

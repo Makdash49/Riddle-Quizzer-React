@@ -1,27 +1,3 @@
-// // src/components/contacts.js
-//
-// import React from 'react'
-//
-// const List = ({ list }) => {
-//   handleClick() {
-//     console.log("Someone clicked a punchline!!!")
-//   }
-//
-//   return (
-//     <div>
-//       {list.map((contact) => (
-//         <button key={contact.punchline} className="Click-here" onClick={this.handleClick}>{contact.punchline}</button>
-//
-//       ))}
-//     </div>
-//   )
-// };
-//
-// export default List
-
-
-
-// <h5 key={contact.punchline} className="card-title Click-here">{contact.punchline}</h5>
 import React from 'react';
 
 class List extends React.Component {
@@ -32,10 +8,7 @@ class List extends React.Component {
   }
 
   handleAnswer(e) {
-    // const name = e.target.value;
-    // this.props.onChange(name);
     const id = e.target.attributes.id.value;
-    // console.log("id: ", id)
     this.props.compareId(id);
   }
 
