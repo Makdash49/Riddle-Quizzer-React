@@ -36,8 +36,22 @@ class App extends Component {
     feedback: "",
     setupIndex: 0,
     score: 0,
+    timer: 60
   }
+
+
+    startTimer(time) {
+      const that = this;
+      if (time > 0) {
+        setTimeout(function(){
+          that.setState({timer: that.state.timer - 1})
+          that.startTimer(time - 1)}, 1000);
+    }
+  }
+
+
      handleClick() {
+       this.startTimer(this.state.timer);
        fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
          .then((data) => {
@@ -50,8 +64,6 @@ class App extends Component {
            console.log("state: ", this.state);
          })
          .catch(console.log)
-         // this.setState()
-
        }
 
        compareId(punchlineId) {
@@ -80,6 +92,7 @@ class App extends Component {
       <div className="joke-container centered">
         <h1>Riddle Quizzer React</h1>
         <h3>Your score: {this.state.score}</h3>
+        <h3>Timer: {this.state.timer}</h3>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId}/>
