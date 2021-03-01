@@ -44,17 +44,17 @@ class App extends Component {
     startTimer(time) {
       const that = this;
       if (time > 0 && this.state.timerCanRun) {
+        if (time === 1) {this.setState({feedback: "You ran out of time!!!!"})}
+        this.setState({timer: time - 1})
         setTimeout(function(){
-          that.setState({timer: that.state.timer - 1})
           that.startTimer(time - 1)}, 1000);
-    } else if (this.state.timerCanRun) {
-      this.setState({feedback: "You ran out of time!!!!"})
-    }
-  }
-
+        }
+      }
 
      handleClick() {
-       this.startTimer(this.state.timer);
+       const that = this;
+       setTimeout(function(){
+         that.startTimer(that.state.timer)}, 1000);
        fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
          .then((data) => {
