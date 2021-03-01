@@ -37,14 +37,16 @@ class App extends Component {
     setupIndex: 0,
     score: 0,
     timer: 20,
-    timerCanRun: true
+    timerCanRun: true,
+    startButtonActive: true
   }
 
 
     startTimer(time) {
       const that = this;
       if (time > 0 && this.state.timerCanRun) {
-        if (time === 1) {this.setState({feedback: "You ran out of time!!!!"})}
+        if (time === 1) {this.setState({feedback: "You ran out of time!!!!",
+                                        startButtonActive: true})}
         this.setState({timer: time - 1})
         setTimeout(function(){
           that.startTimer(time - 1)}, 1000);
@@ -55,8 +57,6 @@ class App extends Component {
        const that = this;
        this.setState({timer: 20,
                       timerCanRun: true});
-       setTimeout(function(){
-         that.startTimer(that.state.timer)}, 1000);
        fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
          .then((data) => {
@@ -65,8 +65,11 @@ class App extends Component {
            this.setState({ jokes: firstFour,
                            shuffled: shuffledFour,
                            setupIndex: 0,
-                           feedback: ""});
+                           feedback: "",
+                           startButtonActive: false});
            console.log("state: ", this.state);
+           setTimeout(function(){
+             that.startTimer(that.state.timer)}, 1000);
          })
          .catch(console.log)
        }
@@ -85,7 +88,8 @@ class App extends Component {
          } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
            this.setState({feedback: "You cleared the jokes. Click for more!",
                           score: (score + 1),
-                          timerCanRun: false});
+                          timerCanRun: false,
+                          startButtonActive: true})
          } else {
            this.setState({feedback: "WRONG!!!",
                           score: (score - 1)});
@@ -94,12 +98,16 @@ class App extends Component {
        }
 
   render() {
+    let button;
+    if (this.state.startButtonActive) {
+      button = <button className="Click-here" onClick={this.handleClick}>Click to Start</button>
+    }
     return (
       <div className="joke-container centered">
         <h1>Riddle Quizzer React</h1>
         <h3>Your score: {this.state.score}</h3>
         <h3>Timer: {this.state.timer}</h3>
-        <button className="Click-here" onClick={this.handleClick}>Click to Start</button>
+        {button}
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
