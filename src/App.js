@@ -35,6 +35,7 @@ class App extends Component {
     shuffled: [],
     feedback: "",
     setupIndex: 0,
+    score: 0,
   }
      handleClick() {
        fetch('https://official-joke-api.appspot.com/jokes/ten')
@@ -49,23 +50,27 @@ class App extends Component {
            console.log("state: ", this.state);
          })
          .catch(console.log)
-         this.setState()
+         // this.setState()
 
        }
 
        compareId(punchlineId) {
          const setupIndex = this.state.setupIndex;
          const setupId = this.state.jokes[setupIndex].id;
+         const score = this.state.score;
          const that = this;
 
          if (setupId === parseInt(punchlineId) && setupIndex < 3) {
-           this.setState({feedback: "You got it right!!!"});
+           this.setState({feedback: "You got it right!!!",
+                                     score: (score + 1)});
            setTimeout(function(){that.setState({feedback: "",
                                                 setupIndex: (setupIndex + 1)})}, 1000);
          } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
-           this.setState({feedback: "You cleared the jokes. Click for more jokes!"});
+           this.setState({feedback: "You cleared the jokes. Click for more!",
+                                     score: (score + 1)});
          } else {
-           this.setState({feedback: "WRONG!!!"});
+           this.setState({feedback: "WRONG!!!",
+                          score: (score - 1)});
            setTimeout(function(){that.setState({feedback: ""})}, 1000);
          }
        }
@@ -74,6 +79,7 @@ class App extends Component {
     return (
       <div className="joke-container centered">
         <h1>Riddle Quizzer React</h1>
+        <h3>Your score: {this.state.score}</h3>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId}/>

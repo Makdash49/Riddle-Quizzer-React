@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+// rename this setup
 const Joke = ({ joke, setupIndex }) => {
   return (
     <div>
