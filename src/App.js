@@ -53,6 +53,8 @@ class App extends Component {
 
      handleClick() {
        const that = this;
+       this.setState({timer: 20,
+                      timerCanRun: true});
        setTimeout(function(){
          that.startTimer(that.state.timer)}, 1000);
        fetch('https://official-joke-api.appspot.com/jokes/ten')
@@ -97,7 +99,7 @@ class App extends Component {
         <h1>Riddle Quizzer React</h1>
         <h3>Your score: {this.state.score}</h3>
         <h3>Timer: {this.state.timer}</h3>
-        <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
+        <button className="Click-here" onClick={this.handleClick}>Click to Start</button>
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
