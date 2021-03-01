@@ -14,14 +14,26 @@ class List extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.list.map((contact) => (
-          <button key={contact.punchline} className="Click-here" onClick={this.handleAnswer} id={contact.id}>{contact.punchline}</button>
 
-        ))}
-      </div>
-    )
+    if (this.props.timer < 1) {
+      return (
+        <div>
+          {this.props.list.map((contact) => (
+            <button key={contact.punchline} className="Click-here" id={contact.id}>{contact.punchline}</button>
+
+          ))}
+        </div>
+
+      )
+    } else {
+      return (
+        <div>
+          {this.props.list.map((contact) => (
+            <button key={contact.punchline} className="Click-here" onClick={this.handleAnswer} id={contact.id}>{contact.punchline}</button>
+
+          ))}
+        </div>
+      )}
   }
 }
 

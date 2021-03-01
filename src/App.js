@@ -36,16 +36,19 @@ class App extends Component {
     feedback: "",
     setupIndex: 0,
     score: 0,
-    timer: 60
+    timer: 20,
+    timerCanRun: true
   }
 
 
     startTimer(time) {
       const that = this;
-      if (time > 0) {
+      if (time > 0 && this.state.timerCanRun) {
         setTimeout(function(){
           that.setState({timer: that.state.timer - 1})
           that.startTimer(time - 1)}, 1000);
+    } else if (this.state.timerCanRun) {
+      this.setState({feedback: "You ran out of time!!!!"})
     }
   }
 
@@ -79,7 +82,8 @@ class App extends Component {
                                                 setupIndex: (setupIndex + 1)})}, 1000);
          } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
            this.setState({feedback: "You cleared the jokes. Click for more!",
-                                     score: (score + 1)});
+                          score: (score + 1),
+                          timerCanRun: false});
          } else {
            this.setState({feedback: "WRONG!!!",
                           score: (score - 1)});
@@ -95,7 +99,7 @@ class App extends Component {
         <h3>Timer: {this.state.timer}</h3>
         <button className="Click-here" onClick={this.handleClick}>Click Me for a Joke</button>
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
-          <List list={this.state.shuffled} compareId={this.compareId}/>
+          <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
           <h1>{this.state.feedback}</h1>
       </div>
