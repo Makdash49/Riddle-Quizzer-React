@@ -23,7 +23,7 @@ function shuffle(array) {
   return array;
 }
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
   super(props);
   this.handleClick = this.handleClick.bind(this);
@@ -81,7 +81,7 @@ class App extends Component {
          const that = this;
 
          if (setupId === parseInt(punchlineId) && setupIndex < 3) {
-           this.setState({feedback: "You got it right!!!",
+           this.setState({feedback: "You got it right!!! +1",
                                      score: (score + 1)});
            setTimeout(function(){that.setState({feedback: "",
                                                 setupIndex: (setupIndex + 1)})}, 1000);
@@ -91,7 +91,7 @@ class App extends Component {
                           timerCanRun: false,
                           startButtonActive: true})
          } else {
-           this.setState({feedback: "WRONG!!!",
+           this.setState({feedback: "WRONG!!! -1",
                           score: (score - 1)});
            setTimeout(function(){that.setState({feedback: ""})}, 1000);
          }
@@ -105,12 +105,12 @@ class App extends Component {
     return (
       <div className="joke-container centered">
         <h1>Riddle Quizzer React</h1>
-        <h3>Your score: {this.state.score}</h3>
         <h3>Timer: {this.state.timer}</h3>
         {button}
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
+          <h3>Your score: {this.state.score}</h3>
           <h1>{this.state.feedback}</h1>
       </div>
     );
