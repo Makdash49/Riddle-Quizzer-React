@@ -100,18 +100,18 @@ class App extends React.Component {
   render() {
     let button;
     if (this.state.startButtonActive) {
-      button = <button className="Click-here" onClick={this.handleClick}>Click to Start</button>
+      button = <button className="start" onClick={this.handleClick}>Click to Start</button>
     }
     return (
       <div className="joke-container centered">
-        <h1>Riddle Quizzer React</h1>
-        <h3>Timer: {this.state.timer}</h3>
+        <h2>Riddle Quizzer</h2>
+        <h5>Timer: {this.state.timer}</h5>
         {button}
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
           <h3>Your score: {this.state.score}</h3>
-          <h1>{this.state.feedback}</h1>
+          <h3>{this.state.feedback}</h3>
       </div>
     );
   }
@@ -121,12 +121,9 @@ export default App;
 
 
 // Todo list:
-// Add a scrambled jokes list
 // Allow the user to select an answer either by typing the letter or clicking on the component
-// Check the letter's joke id against the unscrambled joke list to see if it matches
-// If it matches move onto the next joke setup.
-// Keep going until 4 jokes have been answered.
 // Add random heckles when the answers are wrong.
 // Sound effects
-// timer
-// points, add point for right answer, take away point for wrong.
+// Show Correct Answers, Wrong Answers.
+// Speed up the new joke time? Maybe move to the next joke right away. Alternate correct answers. Correct! You are right!
+// so that they can see that they got it right even if the feedback hasn't disappeared yet.
