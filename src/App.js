@@ -37,6 +37,7 @@ class App extends React.Component {
     setupIndex: 0,
     score: 0,
     timer: 20,
+    hasZero: "",
     timerCanRun: true,
     startButtonActive: true
   }
@@ -45,6 +46,9 @@ class App extends React.Component {
     startTimer(time) {
       const that = this;
       if (time > 0 && this.state.timerCanRun) {
+        if (time > 9) {this.setState({hasZero: ""})};
+        if (time < 11) {this.setState({hasZero: "0"})};
+
         if (time === 1) {this.setState({feedback: "You ran out of time!!!!",
                                         startButtonActive: true})}
         this.setState({timer: time - 1})
@@ -56,6 +60,7 @@ class App extends React.Component {
      handleClick() {
        const that = this;
        this.setState({timer: 20,
+                      hasZero: "",
                       timerCanRun: true});
        fetch('https://official-joke-api.appspot.com/jokes/ten')
          .then(res => res.json())
@@ -105,7 +110,7 @@ class App extends React.Component {
     return (
       <div className="joke-container centered">
         <h2>Riddle Quizzer</h2>
-        <h5>Timer: {this.state.timer}</h5>
+        <h5>Timer: 00:{this.state.hasZero}{this.state.timer}</h5>
         {button}
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
