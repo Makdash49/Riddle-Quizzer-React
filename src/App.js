@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import Joke from './components/joke';
 import List from './components/list';
+var data = require('./jokesArray');
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -62,22 +63,22 @@ class App extends React.Component {
        this.setState({timer: 20,
                       hasZero: "",
                       timerCanRun: true});
-       fetch('https://official-joke-api.appspot.com/jokes/ten')
-         .then(res => res.json())
-         .then((data) => {
-           const firstFour = data.slice(0,4);
-           const shuffledFour = (shuffle(Array.from(firstFour)))
-           this.setState({ jokes: firstFour,
-                           shuffled: shuffledFour,
-                           setupIndex: 0,
-                           feedback: "",
-                           startButtonActive: false});
-           console.log("state: ", this.state);
-           setTimeout(function(){
-             that.startTimer(that.state.timer)}, 1000);
-         })
-         .catch(console.log)
-       }
+
+//         const data = [{"id": 1,
+//                        "setup": "What's the best thing about a Boolean?",
+//                        "punchline": "Even if you're wrong, you're only off by a bit."
+// }];
+        const firstFour = data.slice(0,4);
+        const shuffledFour = (shuffle(Array.from(firstFour)))
+        this.setState({ jokes: firstFour,
+                        shuffled: shuffledFour,
+                        setupIndex: 0,
+                        feedback: "",
+                        startButtonActive: false});
+        console.log("state: ", this.state);
+        setTimeout(function(){
+        that.startTimer(that.state.timer)}, 1000);
+      }
 
        compareId(punchlineId) {
          const setupIndex = this.state.setupIndex;
