@@ -64,11 +64,9 @@ class App extends React.Component {
                       hasZero: "",
                       timerCanRun: true});
 
-//         const data = [{"id": 1,
-//                        "setup": "What's the best thing about a Boolean?",
-//                        "punchline": "Even if you're wrong, you're only off by a bit."
-// }];
-        const firstFour = data.slice(0,4);
+
+        const shuffledData = shuffle(data);              
+        const firstFour = shuffledData.slice(0,4);
         const shuffledFour = (shuffle(Array.from(firstFour)))
         this.setState({ jokes: firstFour,
                         shuffled: shuffledFour,
