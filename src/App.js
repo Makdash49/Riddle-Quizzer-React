@@ -24,7 +24,7 @@ function shuffle(array) {
   return array;
 }
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
   super(props);
   this.handleClick = this.handleClick.bind(this);
@@ -64,8 +64,7 @@ class App extends React.Component {
                       hasZero: "",
                       timerCanRun: true});
 
-
-        const shuffledData = shuffle(data);              
+        const shuffledData = shuffle(data);
         const firstFour = shuffledData.slice(0,4);
         const shuffledFour = (shuffle(Array.from(firstFour)))
         this.setState({ jokes: firstFour,
@@ -73,7 +72,7 @@ class App extends React.Component {
                         setupIndex: 0,
                         feedback: "",
                         startButtonActive: false});
-        console.log("state: ", this.state);
+        // console.log("state: ", this.state);
         setTimeout(function(){
         that.startTimer(that.state.timer)}, 1000);
       }
@@ -84,20 +83,24 @@ class App extends React.Component {
          const score = this.state.score;
          const that = this;
 
-         if (setupId === parseInt(punchlineId) && setupIndex < 3) {
-           this.setState({feedback: "You got it right!!! +1",
-                                     score: (score + 1)});
-           setTimeout(function(){that.setState({feedback: "",
-                                                setupIndex: (setupIndex + 1)})}, 1000);
-         } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
-           this.setState({feedback: "You cleared the jokes. Click for more!",
-                          score: (score + 1),
-                          timerCanRun: false,
-                          startButtonActive: true})
-         } else {
-           this.setState({feedback: "WRONG!!! -1",
-                          score: (score - 1)});
-           setTimeout(function(){that.setState({feedback: ""})}, 1000);
+         console.log("state: ", this.state);
+
+         if (this.state.timerCanRun) {
+           if (setupId === parseInt(punchlineId) && setupIndex < 3) {
+             this.setState({feedback: "You got it right!!! +1",
+                                       score: (score + 1)});
+             setTimeout(function(){that.setState({feedback: "",
+                                                  setupIndex: (setupIndex + 1)})}, 1000);
+           } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
+             this.setState({feedback: "You cleared the jokes. Click for more!",
+                            score: (score + 1),
+                            timerCanRun: false,
+                            startButtonActive: true})
+           } else {
+             this.setState({feedback: "WRONG!!! -1",
+                            score: (score - 1)});
+             setTimeout(function(){that.setState({feedback: ""})}, 1000);
+           }
          }
        }
 
@@ -131,3 +134,8 @@ export default App;
 // Show Correct Answers, Wrong Answers.
 // Speed up the new joke time? Maybe move to the next joke right away. Alternate correct answers. Correct! You are right!
 // so that they can see that they got it right even if the feedback hasn't disappeared yet.
+// Add a tab where you can see a table of all jokes like the boostrap table you built for SLM.
+// Include sort of jokes by date and length
+// Also have filter by category and year.
+// Allow user to rate jokes with 5 stars.
+// Somehow incorporate some visual representations of the jokes.
