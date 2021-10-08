@@ -101,7 +101,7 @@ class App extends Component {
              this.setState({feedback: "WRONG!!! -1",
                             score: (score - 1)});
              setTimeout(function(){
-               if (feedback === "WRONG!!! -1") {
+               if (that.state.feedback === "WRONG!!! -1") {
                  that.setState({feedback: ""})
                }}, 1000);
            }
