@@ -90,8 +90,11 @@ class App extends Component {
            if (setupId === parseInt(punchlineId) && setupIndex < 3) {
              this.setState({feedback: "You got it right!!! +1",
                                        score: (score + 1)});
-             setTimeout(function(){that.setState({feedback: "",
-                                                  setupIndex: (setupIndex + 1)})}, 1000);
+             setTimeout(function(){
+               that.setState({setupIndex: (setupIndex + 1)})
+               if (that.state.feedback === "You got it right!!! +1") {
+                 that.setState({feedback: ""})
+               }}, 1000);
            } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
              this.setState({feedback: "You cleared the jokes. Click for more!",
                             score: (score + 1),
