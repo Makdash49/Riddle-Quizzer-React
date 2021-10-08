@@ -81,6 +81,7 @@ class App extends Component {
          const setupIndex = this.state.setupIndex;
          const setupId = this.state.jokes[setupIndex].id;
          const score = this.state.score;
+         const feedback = this.state.feedback;
          const that = this;
 
          console.log("state: ", this.state);
@@ -99,7 +100,10 @@ class App extends Component {
            } else {
              this.setState({feedback: "WRONG!!! -1",
                             score: (score - 1)});
-             setTimeout(function(){that.setState({feedback: ""})}, 1000);
+             setTimeout(function(){
+               if (feedback === "WRONG!!! -1") {
+                 that.setState({feedback: ""})
+               }}, 1000);
            }
          }
        }
