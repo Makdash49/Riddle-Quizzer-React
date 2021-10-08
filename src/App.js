@@ -51,7 +51,8 @@ class App extends Component {
         if (time < 11) {this.setState({hasZero: "0"})};
 
         if (time === 1) {this.setState({feedback: "You ran out of time!!!!",
-                                        startButtonActive: true})}
+                                        startButtonActive: true,
+                                        timerCanRun: false})}
         this.setState({timer: time - 1})
         setTimeout(function(){
           that.startTimer(time - 1)}, 1000);
@@ -72,7 +73,6 @@ class App extends Component {
                         setupIndex: 0,
                         feedback: "",
                         startButtonActive: false});
-        // console.log("state: ", this.state);
         setTimeout(function(){
         that.startTimer(that.state.timer)}, 1000);
       }
@@ -81,7 +81,6 @@ class App extends Component {
          const setupIndex = this.state.setupIndex;
          const setupId = this.state.jokes[setupIndex].id;
          const score = this.state.score;
-         const feedback = this.state.feedback;
          const that = this;
 
          console.log("state: ", this.state);
@@ -91,7 +90,9 @@ class App extends Component {
              this.setState({feedback: "You got it right!!! +1",
                                        score: (score + 1)});
              setTimeout(function(){
-               that.setState({setupIndex: (setupIndex + 1)})
+               if (that.state.timerCanRun) {
+                 that.setState({setupIndex: (setupIndex + 1)})
+               }
                if (that.state.feedback === "You got it right!!! +1") {
                  that.setState({feedback: ""})
                }}, 1000);
