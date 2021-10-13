@@ -50,7 +50,8 @@ class App extends Component {
         if (time > 9) {this.setState({hasZero: ""})};
         if (time < 11) {this.setState({hasZero: "0"})};
 
-        if (time === 1) {this.setState({feedback: "You ran out of time!!!!",
+        if (time === 1) {document.getElementById("Button").disabled = false;
+          this.setState({feedback: "You ran out of time!!!!",
                                         startButtonActive: true,
                                         timerCanRun: false})}
         this.setState({timer: time - 1})
@@ -73,6 +74,8 @@ class App extends Component {
                         setupIndex: 0,
                         feedback: "",
                         startButtonActive: false});
+        document.getElementById("Button").disabled = true;
+
         setTimeout(function(){
         that.startTimer(that.state.timer)}, 1000);
       }
@@ -97,6 +100,7 @@ class App extends Component {
                  that.setState({feedback: ""})
                }}, 1000);
            } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
+             document.getElementById("Button").disabled = false;
              this.setState({feedback: "You cleared the jokes. Click for more!",
                             score: (score + 1),
                             timerCanRun: false,
@@ -113,15 +117,11 @@ class App extends Component {
        }
 
   render() {
-    let button;
-    if (this.state.startButtonActive) {
-      button = <button className="start" onClick={this.handleClick}>Click to Start</button>
-    }
     return (
       <div className="joke-container centered">
         <h2>Riddle Quizzer</h2>
         <h5>Timer: 00:{this.state.hasZero}{this.state.timer}</h5>
-        {button}
+        <button className="start" id="Button" onClick={this.handleClick}>Click to Start</button>
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
