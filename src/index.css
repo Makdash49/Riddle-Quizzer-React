@@ -75,3 +75,24 @@ code {
   font-size: 16px;
   border-radius: 25px;
 }
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+
+.blue {
+  color: blue;
+}
+
+.purple {
+  color: purple;
+}
+
+.orange {
+  color: orange;
+}

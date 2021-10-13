@@ -35,6 +35,7 @@ class App extends Component {
     jokes: [],
     shuffled: [],
     feedback: "",
+    feedbackColor: "",
     setupIndex: 0,
     score: 0,
     timer: 20,
@@ -52,8 +53,9 @@ class App extends Component {
 
         if (time === 1) {document.getElementById("Button").disabled = false;
           this.setState({feedback: "You ran out of time!!!!",
-                                        startButtonActive: true,
-                                        timerCanRun: false})}
+                         feedbackColor: "blue",
+                         startButtonActive: true,
+                         timerCanRun: false})}
         this.setState({timer: time - 1})
         setTimeout(function(){
           that.startTimer(time - 1)}, 1000);
@@ -91,8 +93,9 @@ class App extends Component {
          if (this.state.timerCanRun) {
            if (setupId === parseInt(punchlineId) && setupIndex < 3) {
              this.setState({feedback: "You got it right!!! +1",
-                                       score: (score + 1)});
-                                       
+                            feedbackColor: "green",
+                            score: (score + 1)});
+
              setTimeout(function(){
                if (that.state.timerCanRun) {
                  that.setState({setupIndex: (setupIndex + 1)})
@@ -104,12 +107,14 @@ class App extends Component {
                }}, 1000);
            } else if (setupId === parseInt(punchlineId) && setupIndex === 3) {
              document.getElementById("Button").disabled = false;
-             this.setState({feedback: "You cleared the jokes. Click for more!",
+             this.setState({feedback: "You cleared the jokes. Click Start for more!",
+                            feedbackColor: "purple",
                             score: (score + 1),
                             timerCanRun: false,
                             startButtonActive: true})
            } else {
              this.setState({feedback: "WRONG!!! -1",
+                            feedbackColor: "red",
                             score: (score - 1)});
              setTimeout(function(){
                if (that.state.feedback === "WRONG!!! -1") {
@@ -124,12 +129,12 @@ class App extends Component {
       <div className="joke-container centered">
         <h2>Riddle Quizzer</h2>
         <h5>Timer: 00:{this.state.hasZero}{this.state.timer}</h5>
-        <button className="start" id="Button" onClick={this.handleClick}>Click to Start</button>
+        <button className="start" id="Button" onClick={this.handleClick}>Start</button>
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
           <h3>Your score: {this.state.score}</h3>
-          <h3>{this.state.feedback}</h3>
+          <h3 class={this.state.feedbackColor}>{this.state.feedback}</h3>
       </div>
     );
   }
@@ -139,6 +144,8 @@ export default App;
 
 
 // Todo list:
+// Lock in narrower width
+// Make Score: 4 out of 5, etc.
 // Allow the user to select an answer either by typing the letter or clicking on the component
 // Add random heckles when the answers are wrong.
 // Sound effects
