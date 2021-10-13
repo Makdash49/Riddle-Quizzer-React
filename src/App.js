@@ -38,6 +38,7 @@ class App extends Component {
     feedbackColor: "",
     setupIndex: 0,
     score: 0,
+    jokeNumber: 0,
     timer: 20,
     hasZero: "",
     timerCanRun: true,
@@ -82,10 +83,11 @@ class App extends Component {
         that.startTimer(that.state.timer)}, 1000);
       }
 
-       compareId(punchlineId) {
+      compareId(punchlineId) {
          const setupIndex = this.state.setupIndex;
          const setupId = this.state.jokes[setupIndex].id;
          const score = this.state.score;
+         const jokeNumber = this.state.jokeNumber;
          const that = this;
 
          console.log("state: ", this.state);
@@ -94,7 +96,8 @@ class App extends Component {
            if (setupId === parseInt(punchlineId) && setupIndex < 3) {
              this.setState({feedback: "You got it right!!! +1",
                             feedbackColor: "green",
-                            score: (score + 1)});
+                            score: (score + 1),
+                            jokeNumber: (jokeNumber + 1)});
 
              setTimeout(function(){
                if (that.state.timerCanRun) {
@@ -110,6 +113,7 @@ class App extends Component {
              this.setState({feedback: "You cleared the jokes. Click Start for more!",
                             feedbackColor: "purple",
                             score: (score + 1),
+                            jokeNumber: (jokeNumber + 1),
                             timerCanRun: false,
                             startButtonActive: true})
            } else {
@@ -133,7 +137,7 @@ class App extends Component {
           <Joke joke={this.state.jokes} setupIndex={this.state.setupIndex}/>
           <List list={this.state.shuffled} compareId={this.compareId} timer={this.state.timer}/>
           {/* This could be its own component*/}
-          <h3>Your score: {this.state.score}</h3>
+          <h3>You scored: {this.state.score} out of {this.state.jokeNumber} </h3>
           <h3 class={this.state.feedbackColor}>{this.state.feedback}</h3>
       </div>
     );
@@ -146,6 +150,7 @@ export default App;
 // Todo list:
 // Lock in narrower width
 // Make Score: 4 out of 5, etc.
+// Add tests
 // Allow the user to select an answer either by typing the letter or clicking on the component
 // Add random heckles when the answers are wrong.
 // Sound effects
